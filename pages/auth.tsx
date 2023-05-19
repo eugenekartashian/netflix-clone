@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useCallback, useState } from "react";
-import { getSession, signIn } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 
 import Input from "@/components/Input";
 import Modal from "@/components/Modal";
@@ -23,6 +23,21 @@ export default function Auth() {
         setVariant((currentVariant) => currentVariant === 'signin' ? 'signup' : 'signin')
     }, []);
 
+    const login = useCallback(async () => {
+        try {
+          await signIn('credentials', {
+            email,
+            password,
+            redirect: false,
+            callbackUrl: '/profiles'
+          });
+
+
+        } catch (error) {
+          console.log(error);
+        }
+      }, [email, password]);
+
     const register = useCallback(async () => {
         try {
           await axios.post('/api/register', {
@@ -30,11 +45,13 @@ export default function Auth() {
             name,
             password
           });
-    
+
+          login();
+
         } catch (error) {
             console.log(error);
         }
-      }, [email, name, password]);
+      }, [email, name, password, login]);
 
     return (
       <div className="relative h-full w-full bg-[url('/images/hero.jpg')] bg-no-repeat bg-center bg-fixed bg-cover">
@@ -91,7 +108,7 @@ export default function Auth() {
                     </div>
                     <div className="flex flex-row items-center gap-4 mt-4 justify-center">
                         <div 
-                            onClick={() => signIn('google', { callbackUrl: '/' })}
+                            onClick={() => signIn('google', { callbackUrl: '/profiles' })}
                             className="
                                 w-10
                                 h-10
@@ -108,7 +125,7 @@ export default function Auth() {
                             <FcGoogle size={30} />
                         </div>
                         <div 
-                            onClick={() => signIn('github', { callbackUrl: '/' })}
+                            onClick={() => signIn('github', { callbackUrl: '/profiles' })}
                             className="
                                 w-10
                                 h-10
