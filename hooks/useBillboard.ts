@@ -1,25 +1,6 @@
 import useSwr from 'swr'
-import fetcher from '@/lib/fetcher';
-
-
-// const useBillboard = () => {
-//     const { data, error, isLoading } = useSwr('/api/random', fetcher, {
-//         revalidateIfStale: false,
-//         revalidateOnFocus: false,
-//         revalidateOnReconnect: false,
-//     });
-
-//     return {
-//         data,
-//         error,
-//         isLoading
-//     }
-// };
-
-interface BillboardResponse {
-    thumbnailUrl: string;
-    videoUrl: string;
-}
+import { fetcher } from '@/lib/fetcher';
+import {BillboardResponse} from "@/types/billboard";
 
 const useBillboard = () => {
     const { data, error, isLoading } = useSwr<BillboardResponse>('/api/random', fetcher, {
