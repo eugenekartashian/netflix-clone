@@ -1,4 +1,5 @@
 import axios from "axios";
+import {BillboardResponse} from "@/types/billboard";
 
-export default function fetcher(url: string) { axios.get(url).then((res) => res.data) };
-
+export const fetcher = (url: string): Promise<BillboardResponse> =>
+    axios.get(url).then((res) => res.data);
