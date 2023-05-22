@@ -11,6 +11,7 @@ const Billboard = ({
     return (
         <div className="relative h-[56.25vw]">
             <video 
+                className="w-full"
                 autoPlay
                 muted
                 loop

@@ -1,6 +1,9 @@
-interface ModalProps {
-    isVisible: boolean;
-}
+import React from "react";
+import { ModalProps } from "@/types/modal";
+
+// interface ModalProps {
+//     isVisible: boolean;
+// }
 
 const Modal: React.FC<ModalProps> = ({ 
     isVisible 

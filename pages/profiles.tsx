@@ -1,4 +1,4 @@
-import useCurrentUser from "@/hooks/useCurrrent";
+import useCurrentUser from "@/hooks/useCurrent";
 import { NextPageContext } from "next";
 import { getSession, useSession } from "next-auth/react";
 import { useCallback } from "react";

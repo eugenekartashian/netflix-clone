@@ -1,8 +1,9 @@
 import React from "react";
+import { NavbarItemProps } from "@/types/navbaritem";
 
-interface NavbarItemProps {
-    label: string;
-}
+// interface NavbarItemProps {
+//     label: string;
+// }
 
 const NavbarItem: React.FC<NavbarItemProps> = ({
     label
