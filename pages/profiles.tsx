@@ -1,11 +1,9 @@
-import useCurrentUser from "@/hooks/useCurrent";
+import useCurrentUser from "@/hooks/useCurrentUser";
 import { NextPageContext } from "next";
 import { getSession, useSession } from "next-auth/react";
 import { useCallback } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-
-
 
 
 export async function getServerSideProps(context: NextPageContext) {
@@ -41,7 +39,7 @@ export default function Profiles() {
                 <div className="flex items-center justify-center gap-8 mt-10">
                     <div onClick={() => selectProfile()}>
     
-                        <div className="group flex-row w-44 mx-auto">
+                        <div className="group flex flex-col w-full items-center justify-center">
                             <div
                                 className="
                                     w-44
@@ -67,6 +65,23 @@ export default function Profiles() {
 
                             <div
                                 className="
+                                  flex
+                                  justify-center
+                                  items-center
+                                  mt-4
+                                  text-gray-400
+                                  text-2xl
+                                  text-center
+                                  group-hover:text-white
+                                "
+                            >
+                                {currentUser?.name} 
+                            </div>
+                            <div
+                                className="
+                                  flex
+                                  justify-center
+                                  items-center
                                   mt-4
                                   text-gray-400
                                   text-2xl
@@ -74,7 +89,6 @@ export default function Profiles() {
                                   group-hover:text-white  
                                 "
                             >
-                                {currentUser?.name} 
                                 {currentUser?.email}
                             </div>
                         </div>   

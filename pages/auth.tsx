@@ -1,15 +1,36 @@
 import axios from "axios";
 import { useCallback, useState } from "react";
-import { signIn } from 'next-auth/react';
+import { getSession, signIn } from "next-auth/react";
+import { NextPageContext } from "next";
+import { useRouter } from "next/router";
 
 import Input from "@/components/Input";
 import Modal from "@/components/Modal";
 import Image from "next/image";
 
-import { FcGoogle } from 'react-icons/fc';
-import { FaGithub } from 'react-icons/fa';
+import { FcGoogle } from "react-icons/fc";
+import { FaGithub } from "react-icons/fa";
+
+
+export async function getServerSideProps(context: NextPageContext) {
+    const session = await getSession(context);
+  
+    if (session) {
+      return {
+        redirect: {
+          destination: '/',
+          permanent: false,
+        }
+      }
+    }
+  
+    return {
+      props: {}
+    }
+  }
 
 export default function Auth() {
+    const router = useRouter();
 
     const [showModal, setShowModal] = useState(false);
 
@@ -23,20 +44,24 @@ export default function Auth() {
         setVariant((currentVariant) => currentVariant === 'signin' ? 'signup' : 'signin')
     }, []);
 
+
+
     const login = useCallback(async () => {
         try {
           await signIn('credentials', {
             email,
             password,
             redirect: false,
-            callbackUrl: '/profiles'
+            callbackUrl: '/'
           });
 
-
+          router.push('/profiles');
         } catch (error) {
           console.log(error);
         }
-      }, [email, password]);
+      }, [email, password, router]);
+
+
 
     const register = useCallback(async () => {
         try {
